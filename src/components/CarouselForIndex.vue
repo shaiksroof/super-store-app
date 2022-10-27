@@ -1,15 +1,43 @@
 <template>
   <div class="full-width">
-    <q-carousel animated v-model="slide" arrows navigation infinite>
-      <q-carousel-slide
-        v-for="slide in slides"
-        :key="slide.name"
-        :name="slide.name"
-        :img-src="slide.src"
-      >
-        <div class="custom-caption q-pa-xl">
-          <div class="text-h2 text-primary">First stop</div>
-          <div class="text-subtitle1 text-secondary">Mountains</div>
+    <q-carousel
+      v-model="slide"
+      transition-prev="jump-right"
+      transition-next="jump-left"
+      swipeable
+      animated
+      control-color="white"
+      prev-icon="arrow_left"
+      next-icon="arrow_right"
+      navigation-icon="radio_button_unchecked"
+      navigation
+      padding
+      arrows
+      height="300px"
+      class="bg-accent text-white"
+    >
+      <q-carousel-slide name="style" class="column no-wrap flex-center">
+        <q-icon name="style" size="56px" />
+        <div class="q-mt-md text-center">
+          {{ lorem }}
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide name="tv" class="column no-wrap flex-center">
+        <q-icon name="live_tv" size="56px" />
+        <div class="q-mt-md text-center">
+          {{ lorem }}
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide name="layers" class="column no-wrap flex-center">
+        <q-icon name="layers" size="56px" />
+        <div class="q-mt-md text-center">
+          {{ lorem }}
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide name="map" class="column no-wrap flex-center">
+        <q-icon name="terrain" size="56px" />
+        <div class="q-mt-md text-center">
+          {{ lorem }}
         </div>
       </q-carousel-slide>
     </q-carousel>
@@ -18,23 +46,19 @@
 
 <script setup>
 import { ref } from "vue";
-const slide = ref("1");
-const slides = [
-  {
-    src: "https://cdn.quasar.dev/img/mountains.jpg",
-    name: "1",
-  },
-  {
-    src: "https://cdn.quasar.dev/img/parallax1.jpg",
-    name: "2",
-  },
-  {
-    src: "https://cdn.quasar.dev/img/parallax2.jpg",
-    name: "3",
-  },
-  {
-    src: "https://cdn.quasar.dev/img/quasar.jpg",
-    name: "4",
-  },
-];
+const slide = ref("style");
+
+const lorem =
+  "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.";
 </script>
+<style lang="scss" scoped>
+.carousel-container {
+  height: 300px;
+  @media (max-width: $breakpoint-sm-max) {
+    height: 240px;
+  }
+  @media (max-width: $breakpoint-xs-max) {
+    height: 160px;
+  }
+}
+</style>

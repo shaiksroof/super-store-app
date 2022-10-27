@@ -2,10 +2,32 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+    children: [
+      {
+        path: "",
+        name: "index",
+        component: () => import("pages/IndexPage.vue"),
+      },
+      {
+        path: "product/:id",
+        name: "product",
+        component: () => import("pages/ProductPage.vue"),
+      },
+      {
+        path: "category/:category",
+        name: "category",
+        component: () => import("pages/CategoryPage.vue"),
+      },
+      {
+        path: "cart",
+        name: "cart",
+        component: () => import("pages/CartPage.vue"),
+      },
+    ],
   },
   {
     path: "/login",
+    name: "login",
     component: () => import("layouts/LoginLayout.vue"),
   },
 

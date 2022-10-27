@@ -1,31 +1,52 @@
 <template>
-  <q-drawer v-model="open" show-if-above bordered>
-    <q-list>
-      <q-item-label header> Essential Links </q-item-label>
-      <q-item
-        clickable
-        tag="a"
-        target="_blank"
-        :href="link.link"
-        v-for="link in essentialLinks"
-        :key="link.title"
-        class="rounded-borders h-nav"
-      >
-        <q-item-section v-if="link.icon" avatar>
-          <q-icon :name="link.icon" />
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label>{{ link.title }}</q-item-label>
-          <q-item-label link.caption>{{ link.caption }}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
+  <q-drawer v-model="open" bordered class="bg-grey-3">
+    <q-scroll-area class="fit">
+      <q-list>
+        <q-item>
+          <q-item-section>
+            <q-item-label>Categories</q-item-label>
+            <q-item-label caption
+              >Secondary line text. Lorem ipsum dolor sit amet, consectetur
+              adipiscit elit.</q-item-label
+            >
+          </q-item-section>
+        </q-item>
+        <q-separator spaced />
+        <template v-for="(menuItem, index) in essentialLinks" :key="index">
+          <router-link
+            :to="{ name: 'category', params: { category: menuItem.category } }"
+          >
+            <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
+              <q-item-section class="text-primary" avatar>
+                <q-icon :name="menuItem.icon" />
+              </q-item-section>
+              <q-item-section class="text-capitalize text-secondary">
+                {{ menuItem.category }}
+              </q-item-section>
+            </q-item>
+          </router-link>
+          <q-separator :key="'sep' + index" v-if="menuItem.separator" />
+        </template>
+        <q-separator spaced />
+        <q-item clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon :name="`help`" />
+          </q-item-section>
+          <q-item-section class="text-capitalize">Help </q-item-section>
+        </q-item>
+      </q-list>
+    </q-scroll-area>
   </q-drawer>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onBeforeMount } from "vue";
+const essentialLinks = ref([]);
+onBeforeMount(() => {
+  fetch("./src/assets/data/categories.json")
+    .then((res) => res.json())
+    .then((json) => (essentialLinks.value = json));
+});
 
 const open = ref(false);
 const props = defineProps({
@@ -38,19 +59,4 @@ watch(
     open.value = !open.value;
   }
 );
-
-const essentialLinks = [
-  {
-    title: "Quasar Awesome",
-    caption: "Community Quasar projects",
-    icon: "favorite",
-    link: "https://awesome.quasar.dev",
-  },
-  {
-    title: "Login",
-    caption: "Community Quasar projects",
-    icon: "favorite",
-    link: "#login",
-  },
-];
 </script>

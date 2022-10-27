@@ -2,42 +2,4 @@
 body {
   background-color: $bodyBg;
 }
-.primary-menu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0 24px;
-  display: flex;
-
-  li {
-    a {
-      padding: 1rem 24px;
-      text-decoration: none;
-      color: $secondary;
-      &:hover {
-        background-color: $secondary;
-        color: $primary;
-      }
-    }
-  }
-}
-
-.secondary-menu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  font-size: x-small;
-
-  li {
-    margin: 0 0.8rem;
-    a {
-      text-decoration: none;
-      color: $secondary;
-    }
-  }
-}
-
-.q-carousel
-{
-  border-radius: 1rem;
-}
+a { text-decoration: none; }

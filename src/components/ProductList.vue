@@ -1,29 +1,39 @@
 <template>
   <div class="full-width">
-    <q-infinite-scroll @load="onLoad" :offset="250">
-      <div class="full-width row wrap">
+    <q-infinite-scroll @load="onLoad" :offset="300">
+      <div class="row q-col-gutter-md">
         <q-intersection
           v-for="product in products"
-          :key="product.name"
+          :key="product.id"
           once
           transition="scale"
-          class="col col-md-4 col-sm-6 col-xs-12"
+          class="col col-md-3 col-sm-4 col-xs-6"
         >
-          <q-card class="q-ma-sm">
-            <q-img
-              :src="product.thumb"
-              :alt="product.name"
-              spinner-color="primary"
-            />
+          <q-card rounded>
+            <a :href="'#/product/' + product.id">
+              <q-img
+                :src="product.image"
+                :alt="product.title"
+                spinner-color="primary"
+                style="max-height: 150px"
+              />
+            </a>
             <q-card-section>
-              <h5 class="q-mt-xs q-mb-xs">
-                {{ product.name }}
-              </h5>
-              <div class="price">
-                {{ product.price }} {{ product.currency }}
+              <div class="row no-wrap items-center">
+                <div class="col text-h6 ellipsis">{{ product.title }}</div>
               </div>
-              <div class="desc">{{ product.description }}</div>
-            </q-card-section></q-card
+              <div class="text-subtitle1 text-secondary">
+                {{ product.price }}
+              </div>
+            </q-card-section>
+            <q-separator />
+
+            <q-card-actions>
+              <q-btn flat round icon="shopping_cart" />
+              <q-btn flat color="primary" @click="ATC(product)">
+                Add to Cart
+              </q-btn>
+            </q-card-actions></q-card
           >
         </q-intersection>
       </div>
@@ -37,47 +47,24 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-function onLoad(index, done) {
-  setTimeout(() => {
-    // products.push({});
-    done();
-  }, 1000);
+import { ref, onBeforeMount } from "vue";
+import { useCartStore } from "stores/cart";
+
+const cart = useCartStore();
+
+const props = defineProps({
+  products: Array,
+});
+
+function ATC(product) {
+  cart.addItem(product);
 }
-const products = [
-  {
-    thumb: "https://cdn.quasar.dev/img/mountains.jpg",
-    img: "https://cdn.quasar.dev/img/mountains.jpg",
-    name: "product name",
-    description: "Product Description",
-    price: "220",
-    currency: "INR",
-  },
-  {
-    thumb: "https://cdn.quasar.dev/img/mountains.jpg",
-    img: "https://cdn.quasar.dev/img/mountains.jpg",
-    name: "product name",
-    description: "Product Description",
-    price: "220",
-    currency: "INR",
-  },
-  {
-    thumb: "https://cdn.quasar.dev/img/mountains.jpg",
-    img: "https://cdn.quasar.dev/img/mountains.jpg",
-    name: "product name",
-    description: "Product Description",
-    price: "220",
-    currency: "INR",
-  },
-  {
-    thumb: "https://cdn.quasar.dev/img/mountains.jpg",
-    img: "https://cdn.quasar.dev/img/mountains.jpg",
-    name: "product name",
-    description: "Product Description",
-    price: "220",
-    currency: "INR",
-  },
-];
+function onLoad(index, done) {
+  //     fetch(`https://fakestoreapi.com/products`).then((r) => r.json()).then(data => {
+  //     products.value.push(data);
+  //  })
+  done();
+}
 </script>
 <style lang="scss" scoped>
 .product-tile {
@@ -89,8 +76,6 @@ const products = [
   }
   .price {
     color: $secondary;
-  }
-  .desc {
   }
 }
 </style>

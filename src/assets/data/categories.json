@@ -1,0 +1,26 @@
+[
+  {
+    "category": "electronics",
+    "path": "electronics",
+    "icon": "cable",
+    "img": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
+  },
+  {
+    "category": "jewelery",
+    "path": "jewelery",
+    "icon": "diamond",
+    "img": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
+  },
+  {
+    "category": "men's clothing",
+    "path": "men_clothing",
+    "icon": "man",
+    "img": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
+  },
+  {
+    "category": "women's clothing",
+    "path": "women_clothing",
+    "icon": "girl",
+    "img": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
+  }
+]
