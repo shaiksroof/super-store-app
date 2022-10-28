@@ -12,7 +12,7 @@ import CarouselForIndex from "components/CarouselForIndex.vue";
 import ProductList from "components/ProductList.vue";
 const products = ref([]);
 onBeforeMount(() => {
-  fetch("./src/assets/data/products.json")
+  fetch(`${process.env.API}/products.json`)
     .then((r) => r.json())
     .then((data) => {
       products.value = data;

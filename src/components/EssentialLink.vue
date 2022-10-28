@@ -43,7 +43,7 @@
 import { ref, watch, onBeforeMount } from "vue";
 const essentialLinks = ref([]);
 onBeforeMount(() => {
-  fetch("./src/assets/data/categories.json")
+  fetch(`${process.env.API}/categories.json`)
     .then((res) => res.json())
     .then((json) => (essentialLinks.value = json));
 });

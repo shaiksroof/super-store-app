@@ -10,14 +10,14 @@
           class="col col-md-3 col-sm-4 col-xs-6"
         >
           <q-card rounded>
-            <a :href="'#/product/' + product.id">
+            <router-link :to="{ name: 'product', params: { id: product.id } }">
               <q-img
                 :src="product.image"
                 :alt="product.title"
                 spinner-color="primary"
                 style="max-height: 150px"
               />
-            </a>
+            </router-link>
             <q-card-section>
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">{{ product.title }}</div>
