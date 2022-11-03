@@ -22,8 +22,9 @@
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">{{ product.title }}</div>
               </div>
-              <div class="text-subtitle1 text-secondary">
-                <span class="text-strike">{{ product.price }}</span> {{  product.price - product.price*0.2 }}
+              <div class="text-subtitle1 text-positive">
+                <span class="text-strike text-secondary"> {{ product.price }} </span> <small class="text-primary">{{product.percent}}% Discount</small><br />{{ percentage(product) }}
+
               </div>
             </q-card-section>
             <q-separator />
@@ -33,7 +34,6 @@
               <q-btn flat color="primary" @click="ATC(product)">
                 Add to Cart
               </q-btn>
-              <span class="text-secondary text-right">20% Discount</span>
             </q-card-actions></q-card
           >
         </q-intersection>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, computed } from "vue";
 import { useCartStore } from "stores/cart";
 
 const cart = useCartStore();
@@ -56,6 +56,11 @@ const cart = useCartStore();
 const props = defineProps({
   products: Array,
 });
+
+function percentage(product) {
+  return product.price - (product.price * product.percent) / 100
+};
+
 
 function ATC(product) {
   cart.addItem(product);
