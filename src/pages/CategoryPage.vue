@@ -8,6 +8,7 @@
 import { ref, onBeforeMount } from "vue";
 import ProductList from "components/ProductList.vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
+import  $axios  from "./../services/axiosInterceptors.service";
 
 const route = useRoute();
 const products = ref([]);
@@ -19,10 +20,10 @@ onBeforeMount(() => {
   fetchCategory(route.params.category);
 });
 function fetchCategory(category) {
-  fetch(`https://fakestoreapi.com/products/category/${category}`)
-    .then((r) => r.json())
-    .then((data) => {
-      products.value = data;
-    });
+  $axios()
+    .get(`product/${category}`)
+    .then(function (response) {
+      products.value = response.data;
+    })
 }
 </script>

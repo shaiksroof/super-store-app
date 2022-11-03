@@ -1,8 +1,8 @@
 module.exports = {
   dev: {
-    API: "http://localhost:9000/data",
+    API: "http://localhost:3000",
   },
   prod: {
-    API: "https://an-cart-app.herokuapp.com/data",
+    API: "https://an-cart-app.herokuapp.com/",
   },
 };

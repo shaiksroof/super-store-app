@@ -12,7 +12,7 @@
           <q-card rounded>
             <router-link :to="{ name: 'product', params: { id: product.id } }">
               <q-img
-                :src="product.image"
+                :src="product.url"
                 :alt="product.title"
                 spinner-color="primary"
                 style="max-height: 150px"
@@ -23,7 +23,7 @@
                 <div class="col text-h6 ellipsis">{{ product.title }}</div>
               </div>
               <div class="text-subtitle1 text-secondary">
-                {{ product.price }}
+                <span class="text-strike">{{ product.price }}</span> {{  product.price - product.price*0.2 }}
               </div>
             </q-card-section>
             <q-separator />
@@ -33,6 +33,7 @@
               <q-btn flat color="primary" @click="ATC(product)">
                 Add to Cart
               </q-btn>
+              <span class="text-secondary text-right">20% Discount</span>
             </q-card-actions></q-card
           >
         </q-intersection>

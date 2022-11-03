@@ -1,38 +1,66 @@
 <template>
   <q-drawer v-model="open" bordered class="bg-grey-3">
     <q-scroll-area class="fit">
+      <div class="text-overline q-ml-md">Logged in as:</div>
+      <h6 class="text-h6 q-ma-none q-ml-md">Shaik Nayeem</h6>
+      <a class="text-caption q-ml-md" @click="() => alert('logout')">Logout</a>
       <q-list>
+        <q-separator spaced />
         <q-item>
           <q-item-section>
             <q-item-label>Categories</q-item-label>
-            <q-item-label caption
-              >Secondary line text. Lorem ipsum dolor sit amet, consectetur
-              adipiscit elit.</q-item-label
-            >
           </q-item-section>
         </q-item>
-        <q-separator spaced />
-        <template v-for="(menuItem, index) in essentialLinks" :key="index">
+        <template v-for="(link, index) in essentialLinks" :key="index">
           <router-link
-            :to="{ name: 'category', params: { category: menuItem.category } }"
+            :to="{ name: 'category', params: { category: link.label } }"
           >
-            <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
+            <q-item clickable :active="link.label === 'Outbox'" v-ripple>
               <q-item-section class="text-primary" avatar>
-                <q-icon :name="menuItem.icon" />
+                <q-icon :name="'help'" />
               </q-item-section>
               <q-item-section class="text-capitalize text-secondary">
-                {{ menuItem.category }}
+                <div class="text-subtitle2">{{ link.label }}</div>
+                <div class="text-caption text-primary">{{ link.value }}</div>
               </q-item-section>
             </q-item>
           </router-link>
-          <q-separator :key="'sep' + index" v-if="menuItem.separator" />
         </template>
         <q-separator spaced />
+        <q-item>
+          <q-item-section>
+            <q-item-label>Admin</q-item-label>
+          </q-item-section>
+        </q-item>
+        <router-link :to="{ name: 'addproduct' }">
+          <q-item clickable v-ripple>
+            <q-item-section class="text-primary" avatar>
+              <q-icon :name="`add`" />
+            </q-item-section>
+            <q-item-section class="text-capitalize text-secondary">
+              Add Product</q-item-section
+            >
+          </q-item>
+        </router-link>
+        <router-link :to="{ name: 'addcategory' }">
+          <q-item clickable v-ripple>
+            <q-item-section class="text-primary" avatar>
+              <q-icon :name="`add`" />
+            </q-item-section>
+            <q-item-section class="text-capitalize text-secondary">
+              Add Category</q-item-section
+            >
+          </q-item>
+        </router-link>
         <q-item clickable v-ripple>
           <q-item-section avatar>
             <q-icon :name="`help`" />
           </q-item-section>
-          <q-item-section class="text-capitalize">Help </q-item-section>
+          <q-item-section class="text-capitalize"
+            ><a ref="lik" href="https://an-cart-app.herokuapp.com/"
+              >Help</a
+            ></q-item-section
+          >
         </q-item>
       </q-list>
     </q-scroll-area>
@@ -41,11 +69,19 @@
 
 <script setup>
 import { ref, watch, onBeforeMount } from "vue";
+import  $axios  from "./../services/axiosInterceptors.service";
 const essentialLinks = ref([]);
 onBeforeMount(() => {
-  fetch(`${process.env.API}/categories.json`)
-    .then((res) => res.json())
-    .then((json) => (essentialLinks.value = json));
+  $axios()
+    .get("category")
+    .then(function (response) {
+      essentialLinks.value = response.data;
+    })
+});
+
+const lik = ref(null);
+onBeforeMount(() => {
+  //console.log(lik);
 });
 
 const open = ref(false);
@@ -60,3 +96,9 @@ watch(
   }
 );
 </script>
+
+<style lang="scss" scoped>
+.q-item__section--avatar{
+  min-width:auto
+}
+</style>
