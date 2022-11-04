@@ -9,7 +9,7 @@
           transition="scale"
           class="col col-md-3 col-sm-4 col-xs-6"
         >
-          <q-card rounded>
+          <q-card rounded class="shadow-05">
             <router-link :to="{ name: 'product', params: { id: product.id } }">
               <q-img
                 :src="product.url"

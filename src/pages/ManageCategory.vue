@@ -2,26 +2,29 @@
   <q-page class="q-ma-md">
     <div class="q-pa-md" style="max-width: 400px; margin: 0 auto">
 
-      <q-card class="q-pa-md" bordered>
+      <q-card bordered>
         <q-list>
-          <q-item-section>List of Categories</q-item-section><q-space />
-        <q-item-section side><q-icon name="add" @click="alert = true"  color="primary" size="1.5em" />
-        </q-item-section></q-list>
-
-        <q-list>
-          <q-separator spaced />
-        <q-item v-for="category in categories" :key="category.name">
-          <q-item-section>
-          <q-item-label>{{category.label}}</q-item-label>
-          <q-item-label caption>{{category.value}}</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <q-icon name="edit" color="primary" size="1.5em" />
-        </q-item-section>
-        <q-item-section side>
-          <q-icon name="delete" color="primary" size="1.5em" />
-        </q-item-section>
-        </q-item>
+          <q-item>
+            <q-item-section>Discounts</q-item-section>
+            <q-item-section side>
+              <q-icon name="add" @click="alert = true"  color="primary" size="1.5em" />
+            </q-item-section>
+          </q-item>
+          <q-item v-for="category in categories" :key="category.label">
+            <q-item-section class="text-primary" avatar>
+              <q-icon :name="category.icon" />
+            </q-item-section>
+            <q-item-section class="text-capitalize text-secondary">
+              <div class="text-subtitle2">{{ category.label }}</div>
+              <div class="text-caption text-primary">{{ category.value }}</div>
+            </q-item-section>
+          <q-item-section side>
+            <q-icon name="edit" color="primary" size="1.5em" />
+          </q-item-section>
+          <q-item-section side>
+            <q-icon name="delete" color="primary" size="1.5em" />
+          </q-item-section>
+          </q-item>
       </q-list>
       </q-card>
       <q-dialog v-model="alert" >
@@ -38,14 +41,14 @@
           class="q-gutter-md"
         >
           <q-input
-            v-model="form_data.name"
+            v-model="form_data.label"
             label="Category Title"
             hint="Add Title"
             lazy-rules
             dense
           />
           <q-input
-            v-model="form_data.desc"
+            v-model="form_data.description"
             label="Category Desciption"
             hint="Awesome Category"
             lazy-rules

@@ -14,7 +14,7 @@
       padding
       arrows
       height="300px"
-      class="bg-accent text-white"
+      class="bg-carousel1 text-primary"
     >
       <q-carousel-slide name="style" class="column no-wrap flex-center">
         <q-icon name="style" size="56px" />

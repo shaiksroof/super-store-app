@@ -110,7 +110,7 @@ onBeforeMount(() => {
       categories.value = response.data;
     })
     $axios()
-    .get("discount")
+    .get("discount/percets")
     .then(function (response) {
       discount.value = response.data;
     })

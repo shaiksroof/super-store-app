@@ -24,15 +24,20 @@ const routes = [
         component: () => import("pages/CartPage.vue"),
       },
       {
-        path: "addproduct",
-        name: "addproduct",
-        component: () => import("pages/AddProduct.vue"),
+        path: "manageproduct",
+        name: "manageproduct",
+        component: () => import("pages/ManageProduct.vue"),
+      },
+      {
+        path: "managediscount",
+        name: "managediscount",
+        component: () => import("pages/ManageDiscount.vue"),
       },
 
       {
-        path: "addcategory",
-        name: "addcategory",
-        component: () => import("pages/AddCategory.vue"),
+        path: "managecategory",
+        name: "managecategory",
+        component: () => import("pages/ManageCategory.vue"),
       },
     ],
   },

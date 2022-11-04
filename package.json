@@ -1,8 +1,8 @@
 {
-  "name": "ott-app",
+  "name": "cacao",
   "version": "0.0.1",
-  "description": "A Ott App",
-  "productName": "Ott App",
+  "description": "A Super Store",
+  "productName": "cacao a super store",
   "author": "Shaik",
   "private": true,
   "scripts": {

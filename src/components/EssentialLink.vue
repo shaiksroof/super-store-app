@@ -11,17 +11,17 @@
             <q-item-label>Categories</q-item-label>
           </q-item-section>
         </q-item>
-        <template v-for="(link, index) in essentialLinks" :key="index">
+        <template v-for="(catogory, index) in catogories" :key="index">
           <router-link
-            :to="{ name: 'category', params: { category: link.label } }"
+            :to="{ name: 'category', params: { category: catogory.label } }"
           >
-            <q-item clickable :active="link.label === 'Outbox'" v-ripple>
+            <q-item clickable :active="catogory.label === 'Outbox'" v-ripple>
               <q-item-section class="text-primary" avatar>
-                <q-icon :name="'help'" />
+                <q-icon :name="catogory.icon" />
               </q-item-section>
               <q-item-section class="text-capitalize text-secondary">
-                <div class="text-subtitle2">{{ link.label }}</div>
-                <div class="text-caption text-primary">{{ link.value }}</div>
+                <div class="text-subtitle2">{{ catogory.label }}</div>
+                <div class="text-caption text-primary">{{ catogory.value }}</div>
               </q-item-section>
             </q-item>
           </router-link>
@@ -32,23 +32,34 @@
             <q-item-label>Admin</q-item-label>
           </q-item-section>
         </q-item>
-        <router-link :to="{ name: 'addproduct' }">
+        <router-link :to="{ name: 'manageproduct' }">
           <q-item clickable v-ripple>
             <q-item-section class="text-primary" avatar>
               <q-icon :name="`add`" />
             </q-item-section>
             <q-item-section class="text-capitalize text-secondary">
-              Add Product</q-item-section
+              Manage Product</q-item-section
             >
           </q-item>
         </router-link>
-        <router-link :to="{ name: 'addcategory' }">
+        <router-link :to="{ name: 'managecategory' }">
           <q-item clickable v-ripple>
             <q-item-section class="text-primary" avatar>
               <q-icon :name="`add`" />
             </q-item-section>
             <q-item-section class="text-capitalize text-secondary">
-              Add Category</q-item-section
+              Manage Category</q-item-section
+            >
+          </q-item>
+        </router-link>
+
+        <router-link :to="{ name: 'managediscount' }">
+          <q-item clickable v-ripple>
+            <q-item-section class="text-primary" avatar>
+              <q-icon :name="`add`" />
+            </q-item-section>
+            <q-item-section class="text-capitalize text-secondary">
+              Manage Discount</q-item-section
             >
           </q-item>
         </router-link>
@@ -70,12 +81,12 @@
 <script setup>
 import { ref, watch, onBeforeMount } from "vue";
 import  $axios  from "./../services/axiosInterceptors.service";
-const essentialLinks = ref([]);
+const catogories = ref([]);
 onBeforeMount(() => {
   $axios()
     .get("category")
     .then(function (response) {
-      essentialLinks.value = response.data;
+      catogories.value = response.data;
     })
 });
 

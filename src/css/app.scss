@@ -1,5 +1,22 @@
 // app global css in SCSS form
 body {
-  background-color: $bodyBg;
+  background-color: $light;
+  .q-header {
+    a {
+      color: $bright;
+     }
+  }
+  .bg-light{
+    background-color: $light;
+  }
+  .bg-carousel1{
+    background-color: $carousel1;
+  }
+  a { text-decoration: none; }
+  .text-bright {
+    color: $bright;
+  }
+  .shadow-05{
+    box-shadow: 0 0.5px 2.5px rgb(0 0 0 / 20%), 0 1px 1px rgb(0 0 0 / 14%), 0 1.5px 0.5px -1px rgb(0 0 0 / 12%);
+  }
 }
-a { text-decoration: none; }

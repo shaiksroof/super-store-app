@@ -1,24 +1,25 @@
 <template>
-  <q-header bordered class="header bg-transparent text-primary q-pt-sm q-pb-sm">
+  <q-header reveal>
     <q-toolbar>
       <q-btn
         flat
         dense
         round
-        size="lg"
-        icon="menu"
-        color="secondary"
+        size="md"
+        icon="more_vert"
         aria-label="Menu"
         @click="toggleLeftDrawer"
+        class="text-bright"
       />
-
-      <q-toolbar-title> 
-      <router-link to="/">Sample Cart App 
+      <q-toolbar-title>
+      <router-link to="/">cacao
     </router-link></q-toolbar-title>
+      <q-btn flat round dense icon="apps" class="q-mr-xs text-bright" />
+
       <router-link to="/cart">
 
-      <q-btn dense color="secondary" round icon="shopping_cart" class="q-ml-md">
-        <q-badge color="primary" floating>{{cart.items.length}}</q-badge>
+      <q-btn dense round size="md" icon="shopping_cart" class="q-ml-md bg-secondary">
+        <q-badge floating>{{cart.items.length}}</q-badge>
       </q-btn>
     </router-link>
     </q-toolbar>
@@ -40,16 +41,16 @@ function toggleLeftDrawer() {
 </script>
 <style lang="scss" scoped>
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-  .header {
-    background-color: #0000001a;
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-  }
+  // .header {
+  //   background-color: #0000001a;
+  //   -webkit-backdrop-filter: blur(12px);
+  //   backdrop-filter: blur(12px);
+  // }
 }
 
 @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-  .header {
-    background-color: #e0e0e0;
-  }
+  // .header {
+  //   background-color: #e0e0e0;
+  // }
 }
 </style>
