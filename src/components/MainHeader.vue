@@ -12,14 +12,14 @@
         class="text-bright"
       />
       <q-toolbar-title>
-      <router-link to="/">cacao
+      <router-link to="/">Super Store
     </router-link></q-toolbar-title>
       <q-btn flat round dense icon="apps" class="q-mr-xs text-bright" />
 
       <router-link to="/cart">
 
       <q-btn dense round size="md" icon="shopping_cart" class="q-ml-md bg-secondary">
-        <q-badge floating>{{cart.items.length}}</q-badge>
+        <q-badge floating class="bg-accent text-primary">{{cart.items.length}}</q-badge>
       </q-btn>
     </router-link>
     </q-toolbar>

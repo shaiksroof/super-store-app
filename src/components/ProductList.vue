@@ -12,7 +12,7 @@
           <q-card rounded class="shadow-05">
             <router-link :to="{ name: 'product', params: { id: product.id } }">
               <q-img
-                :src="product.url"
+                :src="getProductImage(product.images)"
                 :alt="product.title"
                 spinner-color="primary"
                 style="max-height: 150px"
@@ -30,11 +30,15 @@
             <q-separator />
 
             <q-card-actions>
-              <q-btn flat round icon="shopping_cart" />
+              <q-btn flat round icon="shopping_cart">
+                <q-badge floating class="bg-accent text-primary">{{getSelectedQuantity(product)}}</q-badge>
+              </q-btn>
               <q-btn flat color="primary" @click="ATC(product)">
                 Add to Cart
               </q-btn>
-            </q-card-actions></q-card
+            </q-card-actions> <br />
+            {{cart.items}}
+            </q-card
           >
         </q-intersection>
       </div>
@@ -50,12 +54,19 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useCartStore } from "stores/cart";
-
+import utility from "./../services/utility.service";
+const {getProductImage} = utility();
 const cart = useCartStore();
-
 const props = defineProps({
   products: Array,
 });
+
+function getSelectedQuantity(product) {
+  const hero= cart.items.filter((item) => {
+    return item?.name?.id === product.id;
+  });
+  console.log(hero[0]?.amount)
+}
 
 function percentage(product) {
   return product.price - (product.price * product.percent) / 100

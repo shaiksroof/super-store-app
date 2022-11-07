@@ -1,16 +1,9 @@
 <template>
-  <q-drawer v-model="open" bordered class="bg-grey-3">
+  <q-drawer v-model="open" bordered class="bg-light">
     <q-scroll-area class="fit">
-      <div class="text-overline q-ml-md">Logged in as:</div>
-      <h6 class="text-h6 q-ma-none q-ml-md">Shaik Nayeem</h6>
-      <a class="text-caption q-ml-md" @click="() => alert('logout')">Logout</a>
-      <q-list>
+      <h6 class="text-h6 q-ma-md">appsamz</h6>
         <q-separator spaced />
-        <q-item>
-          <q-item-section>
-            <q-item-label>Categories</q-item-label>
-          </q-item-section>
-        </q-item>
+      <q-list dense>
         <template v-for="(catogory, index) in catogories" :key="index">
           <router-link
             :to="{ name: 'category', params: { category: catogory.label } }"
@@ -21,7 +14,7 @@
               </q-item-section>
               <q-item-section class="text-capitalize text-secondary">
                 <div class="text-subtitle2">{{ catogory.label }}</div>
-                <div class="text-caption text-primary">{{ catogory.value }}</div>
+                <div class="text-caption text-primary">{{ catogory.description }}</div>
               </q-item-section>
             </q-item>
           </router-link>
@@ -35,7 +28,7 @@
         <router-link :to="{ name: 'manageproduct' }">
           <q-item clickable v-ripple>
             <q-item-section class="text-primary" avatar>
-              <q-icon :name="`add`" />
+              <q-icon :name="`inventory_2`" />
             </q-item-section>
             <q-item-section class="text-capitalize text-secondary">
               Manage Product</q-item-section
@@ -45,7 +38,7 @@
         <router-link :to="{ name: 'managecategory' }">
           <q-item clickable v-ripple>
             <q-item-section class="text-primary" avatar>
-              <q-icon :name="`add`" />
+              <q-icon :name="`category`" />
             </q-item-section>
             <q-item-section class="text-capitalize text-secondary">
               Manage Category</q-item-section
@@ -56,13 +49,14 @@
         <router-link :to="{ name: 'managediscount' }">
           <q-item clickable v-ripple>
             <q-item-section class="text-primary" avatar>
-              <q-icon :name="`add`" />
+              <q-icon :name="`discount`" />
             </q-item-section>
             <q-item-section class="text-capitalize text-secondary">
               Manage Discount</q-item-section
             >
           </q-item>
         </router-link>
+        <q-separator spaced />
         <q-item clickable v-ripple>
           <q-item-section avatar>
             <q-icon :name="`help`" />

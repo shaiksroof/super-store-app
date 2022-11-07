@@ -1,9 +1,9 @@
 {
-  "name": "cacao",
+  "name": "super_store_appsamz",
   "version": "0.0.1",
-  "description": "A Super Store",
-  "productName": "cacao a super store",
-  "author": "Shaik",
+  "description": "A super store by appsamz",
+  "productName": "Super Store by appsamz",
+  "author": "appsamz",
   "private": true,
   "scripts": {
     "start": "node server.js",

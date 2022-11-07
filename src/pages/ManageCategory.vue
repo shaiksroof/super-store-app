@@ -1,58 +1,81 @@
 <template>
   <q-page class="q-ma-md">
-    <div class="q-pa-md" style="max-width: 400px; margin: 0 auto">
-
-      <q-card bordered>
-        <q-list>
-          <q-item>
-            <q-item-section>Discounts</q-item-section>
-            <q-item-section side>
-              <q-icon name="add" @click="alert = true"  color="primary" size="1.5em" />
-            </q-item-section>
-          </q-item>
-          <q-item v-for="category in categories" :key="category.label">
-            <q-item-section class="text-primary" avatar>
-              <q-icon :name="category.icon" />
-            </q-item-section>
-            <q-item-section class="text-capitalize text-secondary">
-              <div class="text-subtitle2">{{ category.label }}</div>
-              <div class="text-caption text-primary">{{ category.value }}</div>
-            </q-item-section>
+    <q-card class="shadow-05">
+      <q-list separator v-if="list_items.length">
+        <q-item>
+          <q-item-section class="text-h6">Categories</q-item-section>
           <q-item-section side>
-            <q-icon name="edit" color="primary" size="1.5em" />
+            <q-btn
+              round
+              color="secondary"
+              @click="onAdd()"
+              icon="add"
+              class="shadow-0"
+              size="sm"
+            />
           </q-item-section>
-          <q-item-section side>
-            <q-icon name="delete" color="primary" size="1.5em" />
+        </q-item>
+        <q-item v-for="(item, index) in list_items" :key="index">
+          <q-item-section class="text-primary" avatar>
+            <q-icon :name="item.icon" />
           </q-item-section>
-          </q-item>
+          <q-item-section class="text-capitalize text-secondary">
+            <div class="text-subtitle2">{{ item.label }}</div>
+            <div class="text-caption text-primary">{{ item.description }}</div>
+          </q-item-section>
+        <q-item-section side>
+          <q-btn flat round color="primary" icon="edit" @click="onEdit(item)" size="sm" />
+        </q-item-section>
+        <q-item-section side>
+          <q-btn flat round color="primary" icon="delete" @click="onDelete(item.id)" size="sm" />
+        </q-item-section>
+        </q-item>
       </q-list>
-      </q-card>
-      <q-dialog v-model="alert" >
-        <q-card class="" style="max-width:400px">
-          <q-card-section class="row items-center q-pb-none">
-          <q-space />
-          <q-btn icon="close" flat round dense v-close-popup />
-        </q-card-section>
-<div class="q-pa-lg">
+      <q-banner v-else rounded class="text-dark">
+        No Category Listed!
+        <template v-slot:action>
+          <q-btn flat label="Add Category" @click="onAdd()" />
+        </template>
+      </q-banner>
+    </q-card>
+  </q-page>
+  <q-dialog v-model="alert" >
+    <q-card class="" style="width:400px; min-width:360px">
+      <q-card-section class="row items-center q-pb-none">
+        <q-item-label>New Category</q-item-label>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+      <div class="q-pa-md">
         <q-form
           ref="myForm"
-          @submit="onSubmit"
+          @submit="onSubmit('category')"
           @reset="onReset"
           class="q-gutter-md"
         >
           <q-input
             v-model="form_data.label"
-            label="Category Title"
-            hint="Add Title"
+            label="Category"
+            hint="Needed for categorizing the products"
             lazy-rules
             dense
+            :rules="[ val => val && val.length > 0 || 'Please add category']"
+          />
+          <q-input
+            v-model="form_data.icon"
+            label="Category icon"
+            hint="Representing icon"
+            lazy-rules
+            dense
+            :rules="[ val => val && val.length > 0 || 'Please add category icon']"
           />
           <q-input
             v-model="form_data.description"
             label="Category Desciption"
-            hint="Awesome Category"
+            hint="Few lines about category"
             lazy-rules
             dense
+            :rules="[ val => val && val.length > 0 || 'Please add description']"
           />
 
           <div class="text-right">
@@ -72,39 +95,49 @@
             />
           </div>
         </q-form>
-        </div>
-        </q-card>
-      </q-dialog>
-    </div>
-  </q-page>
+      </div>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="confirmDelete" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="warning" color="warning" text-color="white" />
+          <span class="q-ml-sm">You are about to delete a category. Please confirm.</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Delete" @click="deleteConfirmed('category')" color="danger" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from "vue";
-import  $axios  from "./../services/axiosInterceptors.service";
+import {onBeforeMount } from "vue";
+import  utility  from "./../services/utility.service";
 
-const alert = ref(false);
-const form_data = ref({});
-const myForm = ref();
-const categories = ref([]);
+const {
+  alert,
+  confirmDelete,
+  form_data,
+  list_items,
+  itemToBeDeleted,
+  onReset,
+  onAdd,
+  onEdit,
+  onDelete,
+  submitted,
+  deleteConfirmed,
+  getItemList
+} = utility();
+
+function onSubmit(path) {
+  // any path or data changes
+  submitted(path);
+}
 
 onBeforeMount(() => {
-  $axios()
-    .get("category")
-    .then(function (response) {
-        categories.value = response.data
-    })
+  getItemList("category");
 });
-
-function onSubmit() {
-  $axios()
-    .post("category", form_data.value)
-    .then(function (response) {
-
-    })
-}
-
-function onReset() {
-  form_data.value = null;
-}
 </script>
