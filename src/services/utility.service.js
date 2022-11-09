@@ -1,10 +1,8 @@
 import { ref } from "vue";
 import axios from "axios";
-import { EventBus } from "quasar";
 import $axios from "./axiosInterceptors.service";
 
 export default function utility() {
-  const promised = new EventBus();
   const alert = ref(false);
   const confirmDelete = ref(false);
   const form_data = ref({});
@@ -30,8 +28,13 @@ export default function utility() {
     itemToBeDeleted.value = id;
   }
 
-  async function submitted(path) {
-    list_items.value = (await $axios().post(path, form_data.value)).data;
+  async function submitted(path, cb) {
+    const result = (await $axios().post(path, form_data.value)).data;
+    if (cb) {
+      cb(result);
+    } else {
+      list_items.value = result;
+    }
     alert.value = !alert.value;
     onReset();
   }
@@ -74,7 +77,7 @@ export default function utility() {
   }
 
   function getProductPerc(product) {
-    return product.price - (product.price * product.percent) / 100;
+    return (product.price - (product.price * product.percent) / 100).toFixed();
   }
 
   function getProductImage(images) {
@@ -97,7 +100,6 @@ export default function utility() {
     deleteConfirmed,
     getItemList,
     getProductPerc,
-    promised,
     getProductImage,
   };
 }

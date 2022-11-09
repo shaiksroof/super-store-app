@@ -4,10 +4,12 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <MainFooter />
   </q-layout>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import MainHeader from "components/MainHeader.vue";
+import MainFooter from "components/MainFooter.vue";
 </script>

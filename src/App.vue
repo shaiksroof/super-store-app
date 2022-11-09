@@ -5,13 +5,12 @@
 <script setup>
 import { ref } from "vue";
 import { useMeta, Notify, useQuasar } from 'quasar';
-import utility from "./services/utility.service";
-const { promised } = utility();
+import eventBus from "./services/eventBus.service";
 useMeta({ title: "Super Store" })
 const $q = useQuasar()
 
-promised.on('api-done', (arg1, arg2, arg3) => {
- $q.notify('Message')
-})
+eventBus.on("api-done", (arg1, arg2, arg3) => {
+  $q.notify(arg1)
+});
 
 </script>
